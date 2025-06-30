@@ -27,20 +27,32 @@ Based on extensive research, here is a tiered guide to the best open-source mode
 - **Quality:** Superior
 - **Use Case:** Reserve for final, high-stakes renders where quality is the absolute priority and longer generation times are acceptable.
 
-## Features
+---
 
--   **100% Local & Private:** No data ever leaves your machine.
--   **Zero Cost:** Generate unlimited videos with no API fees.
--   **High Quality:** Leverages state-of-the-art models to produce high-resolution, cinematically coherent short videos.
--   **Apple Silicon Optimized:** Specifically designed to use the full power of the M4 Max's GPU cores via PyTorch and Metal Performance Shaders (MPS).
+## Setup & Usage
 
-## Prerequisites
+### Hugging Face Authentication
 
--   A MacBook Pro with an M-series chip (M3/M4 Max with 64GB+ RAM recommended).
--   [MiniForge](https://github.com/conda-forge/miniforge) installed.
--   A sample image to use as a source.
+An authenticated Hugging Face account is required to download the models used in this project.
 
-## Installation
+#### What are User Access Tokens?
+User Access Tokens are the preferred way to authenticate an application or notebook to Hugging Face services. You can manage your access tokens in your settings. Access tokens allow applications and notebooks to perform specific actions specified by the scope of the roles shown in the following:
+
+-   **`fine-grained`**: tokens with this role can be used to provide fine-grained access to specific resources, such as a specific model or models in a specific organization. This type of token is useful in production environments, as you can use your own token without sharing access to all your resources.
+-   **`read`**: tokens with this role can only be used to provide read access to repositories you could read. That includes public and private repositories that you, or an organization you’re a member of, own. Use this role if you only need to read content from the Hugging Face Hub (e.g. when downloading private models or doing inference).
+-   **`write`**: tokens with this role additionally grant write access to the repositories you have write access to. Use this token if you need to create or push content to a repository (e.g., when training a model or modifying a model card).
+
+For this project, a **`read`** token is sufficient, but a **`write`** token provides maximum flexibility for future enhancements.
+
+#### How to use User Access Tokens?
+The scripts in this project will automatically use the token saved on your machine. You can log in via the command line:
+```bash
+huggingface-cli login --token <YOUR_TOKEN>
+```
+
+---
+
+### Installation
 
 1.  **Clone the repository:**
     ```bash
@@ -51,7 +63,7 @@ Based on extensive research, here is a tiered guide to the best open-source mode
 2.  **Set up the environment:**
     The environment setup is handled by Conda. Follow the installation steps in `TASKS.md` to set up the `video-ai` environment and all dependencies.
 
-## Usage
+### Running the Generator
 
 Once the setup is complete, you can generate a video using the main script:
 
@@ -65,9 +77,3 @@ python generate_video.py \
   --prompt "A gentle breeze rustles the leaves, cinematic 4k." \
   --output "output/final_video.mp4"
 ```
-
-## Technology
-
--   **Initial Model:** [LTX-Video](https://huggingface.co/docs/diffusers/main/en/api/pipelines/ltx_video)
--   **Framework:** [PyTorch](https://pytorch.org/)
--   **Library:** [Hugging Face Diffusers](https://huggingface.co/docs/diffusers/index)
